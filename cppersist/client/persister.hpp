@@ -1,18 +1,19 @@
 #ifndef PERSISTER_H_FILE
 #define PERSISTER_H_FILE
 
-#include <string>
-#include "cache.hpp"
-using std::string;
+#include "../interfaces/cache.hpp"
+#include "../interfaces/memcache.hpp"
 
 template<typename T, typename Ret, typename ...Args>
 class PersistentMemoized: public T{
   public:
-    PersistentMemoized(Cache<Ret,Args...>* cache);
+    PersistentMemoized(MemCache<Ret,Args...>* primaryCache, Cache<Ret,Args...>* secondaryCache);
+    PersistentMemoized(Cache<Ret,Args...>* primaryCache);
     ~PersistentMemoized();
     Ret operator()(Args... args);
   private:
-    Cache<Ret,Args...>* persistentCache;
+    Cache<Ret,Args...>* primaryCache;
+    Cache<Ret,Args...>* secondaryCache;
     virtual Ret solve(Args... args);
 };
 

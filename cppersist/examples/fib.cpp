@@ -1,4 +1,5 @@
-#include "../mongo.hpp"
+#include "../client/local.hpp"
+#include "../cacheimpl/regcache.hpp"
 #include <iostream>
 //Fibonacci Sequence Example
 class FibonacciSolver: public PersistentMemoizable<int, int>{
@@ -23,14 +24,15 @@ string keymaker(const int& x){
 }
 using namespace std;
 int main(){
-  FibonacciSolver fibonacciSolver;
   // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi);
+  // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi);
+  PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi,"fib");
   // PersistentMemoized memoizedFib2 = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"fib");
-  PersistentMemoized memoizedFibDb1 = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,
-  "http://localhost:5000");
-  // int z = memoizedFib(3);
+  // PersistentMemoized memoizedFibDb1 = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,
+  // "http://localhost:5000");
+  int z = memoizedFib(3);
   // int z = memoizedFib2(3);
-  int z = memoizedFibDb1(3);
+  // int z = memoizedFibDb1(3);
   std::cout << z << std::endl;
 
 }
