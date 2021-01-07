@@ -14,7 +14,7 @@ class PersistentMemoized: public T{
     PersistentMemoized(const PersistentMemoized& lvalue);
     PersistentMemoized(PersistentMemoized&& rvalue);
     ~PersistentMemoized();
-    Ret operator()(Args... args);
+    Ret operator()(Args const&... args);
     PersistentMemoized& operator=(PersistentMemoized&& rvalue);
     PersistentMemoized& operator=(const PersistentMemoized& lvalue);
     void printCaches();

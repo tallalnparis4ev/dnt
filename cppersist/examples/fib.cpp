@@ -12,14 +12,14 @@ class FibonacciSolver: public PersistentMemoizable<int, int>{
     }
 };
 
-int strtoi(const string& x){
+int strtoi(string x){
   return std::stoi(x);
 }
-string intostr(const int& x){
+string intostr(int x){
   return std::to_string(x);
 }
 
-string keymaker(const int& x){
+string keymaker(int x){
   return std::to_string(x);
 }
 
@@ -42,56 +42,74 @@ int main(){
   // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi,"fib");
   // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"fib");
 
-  PersistentMemoized memoizedFib = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
-  memoizedFib(2);
-  memoizedFib.printCaches();
-  PersistentMemoized memoizedFib2 = std::move(memoizedFib);
-  PersistentMemoized memoizedFib3 = memoizedFib2;
-  PersistentMemoized memoizedFib4 = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
-  memoizedFib4 = memoizedFib2;
-  memoizedFib4 = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
-  cout << memoizedFib2(2) << endl;
-  cout << memoizedFib4(2) << endl;
-  // PersistentMemoized memoizedFib2 = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
-  // memoizedFib2 = memoizedFib;
+  // PersistentMemoized memoizedFib = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
+  // memoizedFib(2);
   // memoizedFib.printCaches();
-  // memoizedFib2.printCaches();
-  // std::this_thread::sleep_for (std::chrono::seconds(1));
-  // memoizedFib = getMongoMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi,"localhost:5000","test1");
-  // PersistentMemoized memoizedFib2 = getMongoMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi,"localhost:5000","test1");
+  // PersistentMemoized memoizedFib2 = std::move(memoizedFib);
+  // PersistentMemoized memoizedFib3 = memoizedFib2;
+  // PersistentMemoized memoizedFib4 = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
+  // memoizedFib4 = memoizedFib2;
+  // memoizedFib4 = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
   // cout << memoizedFib2(2) << endl;
-  
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+  // cout << memoizedFib4(2) << endl;
 
-  //  memoizedFib = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"localhost:5000","test2");
-  // cout << memoizedFib(2) << endl;
-  
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+  // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi);
+  // memoizedFib(2);
+  // memoizedFib.printCaches();
+  // PersistentMemoized memoizedFib2 = std::move(memoizedFib);
+  // PersistentMemoized memoizedFib3 = memoizedFib2;
+  // PersistentMemoized memoizedFib4 = getLocalMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi);
+  // memoizedFib4 = memoizedFib2;
+  // memoizedFib4 = getLocalMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi);
+  // cout << memoizedFib2(2) << endl;
+  // cout << memoizedFib4(2) << endl;
 
-  //  memoizedFib = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"localhost:5000");
-  // cout << memoizedFib(2) << endl;
-  
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
 
-  // memoizedFib = getLocalMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi);
-  // cout << memoizedFib(2) << endl;
+  PersistentMemoized memoizedFib = getMongoMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"localhost:5000");
+  std::this_thread::sleep_for (std::chrono::seconds(1));
+  memoizedFib = getMongoMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi,"localhost:5000","test1");
+  cout << memoizedFib(2) << endl;
   
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+    std::this_thread::sleep_for (std::chrono::seconds(1));
 
-  // memoizedFib = getLocalMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"test1");
-  // cout << memoizedFib(2) << endl;
+   memoizedFib = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"localhost:5000","test2");
+  cout << memoizedFib(2) << endl;
   
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+    std::this_thread::sleep_for (std::chrono::seconds(1));
 
-  // memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi);
-  // cout << memoizedFib(2) << endl;
+   memoizedFib = getMongoMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"localhost:5000");
+  cout << memoizedFib(2) << endl;
   
-  //   std::this_thread::sleep_for (std::chrono::seconds(1));
+    std::this_thread::sleep_for (std::chrono::seconds(1));
 
-  // memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"test2");
-  // cout << memoizedFib(2) << endl;
+  memoizedFib = getLocalMemoizedObj<FibonacciSolver>(REGULAR,keymaker,intostr,strtoi);
+  cout << memoizedFib(2) << endl;
   
+    std::this_thread::sleep_for (std::chrono::seconds(1));
+
+  memoizedFib = getLocalMemoizedObj<FibonacciSolver>(LRU_CACHE,keymaker,intostr,strtoi,"test1");
+  cout << memoizedFib(2) << endl;
+  
+    std::this_thread::sleep_for (std::chrono::seconds(1));
+
+  memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi);
+  cout << memoizedFib(2) << endl;
+  
+    std::this_thread::sleep_for (std::chrono::seconds(1));
+
+  memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi,"test2");
+  cout << memoizedFib(2) << endl;
+  
+  // PersistentMemoized memoizedFib = getLocalMemoizedObj<FibonacciSolver>(keymaker,intostr,strtoi);
   // int z = memoizedFib(3);
   // std::cout << z << std::endl;
 
 }
+
+// template<typename T>
+// void swap(T& a, T& b)
+// {
+//   T temp(std::move (a));
+//   a = std::move (b);
+//   b = std::move (t);
+// }

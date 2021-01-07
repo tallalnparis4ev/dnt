@@ -14,8 +14,8 @@ LRUCache<Ret,Args...>* LRUCache<Ret,Args...>::clone(){
 }
 
 template <typename Ret, typename ...Args> 
-LRUCache<Ret,Args...>::LRUCache(int cacheSize, string (*key)(const Args&...),
-  string (*pickle)(const Ret&),Ret (*unpickle)(const string&))
+LRUCache<Ret,Args...>::LRUCache(int cacheSize, string (*key)(Args...),
+  string (*pickle)(Ret),Ret (*unpickle)(string))
 {
   this->cacheSize = cacheSize;
   this->key = key;
@@ -44,8 +44,10 @@ void LRUCache<Ret,Args...>::print(){
 
 template <typename Ret, typename ...Args> 
 std::optional<string> LRUCache<Ret,Args...>::getFromCache(const string& key){
-  if(!this->cache.contains(key)) return nullopt;
-  return optional<string>{cache[key]};
+  std::unordered_map<string,string>::iterator iter = cache.find(key);
+  if(iter != cache.end()) //found it
+    return optional<string>{iter->second};
+  return nullopt;
 }
 
 template <typename Ret, typename ...Args> 

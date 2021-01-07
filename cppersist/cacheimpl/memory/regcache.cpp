@@ -12,8 +12,8 @@ RegCache<Ret,Args...>* RegCache<Ret,Args...>::clone(){
 }
 
 template <typename Ret, typename ...Args> 
-RegCache<Ret,Args...>::RegCache(string (*key)(const Args&...),
-  string (*pickle)(const Ret&),Ret (*unpickle)(const string&))
+RegCache<Ret,Args...>::RegCache(string (*key)(Args...),
+  string (*pickle)(Ret),Ret (*unpickle)(string))
 {
   this->key = key;
   this->pickle = pickle;
@@ -29,8 +29,10 @@ void RegCache<Ret,Args...>::populateCache(Cache<Ret,Args...>* secondaryCache){
 
 template <typename Ret, typename ...Args> 
 std::optional<string> RegCache<Ret,Args...>::getFromCache(const string& key){
-  if(!this->cache.contains(key)) return nullopt;
-  return optional<string>{this->cache[key]};
+  std::unordered_map<string,string>::iterator iter = cache.find(key);
+  if(iter != cache.end()) //found it
+    return optional<string>{iter->second};
+  return nullopt;
 }
 
 template <typename Ret, typename ...Args> 

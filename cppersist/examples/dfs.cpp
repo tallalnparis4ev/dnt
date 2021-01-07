@@ -1,4 +1,5 @@
-#include "../client/local.hpp"
+#include "../local.hpp"
+#include "../mongo.hpp"
 #include <iostream>
 #include <list> 
 #define STOP "A "
