@@ -1,12 +1,13 @@
 #ifndef MEM_CACHE_H_FILE
 #define MEM_CACHE_H_FILE
 #include "cache.hpp"
-#include <map>
+#include <string>
+#include <optional>
 template <typename Ret, typename ...Args> 
 class MemCache : public Cache<Ret,Args...>{
   public:
-    const virtual std::map<std::string,std::string>& getContents() = 0;
+    virtual void populateCache(Cache<Ret,Args...>*) = 0;
+  protected:
+    virtual std::optional<std::string> getFromCache(const std::string&) = 0;
 };
-
-enum MemCacheType { REGULAR, LRU_CACHE };
 #endif
